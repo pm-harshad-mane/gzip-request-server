@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ORTB Payload Tester</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        button { padding: 10px 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+        #response { 
+            background: #f5f5f5; 
+            padding: 15px; 
+            margin-top: 20px; 
+            border-radius: 4px; 
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .container { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>ORTB Payload Tester</h2>
+    <div class="container">
+        <button id="sendRequest">Send ORTB Request</button>
+    </div>
+    <h3>Response:</h3>
+    <pre id="response">Click the button to send an ORTB request</pre>
+
+    <script>
+        document.getElementById('sendRequest').addEventListener('click', async () => {
+            const responseElement = document.getElementById('response');
+            responseElement.textContent = 'Sending ORTB request...';
+
+            // ORTB 2.5 compliant payload
+            const ortbPayload = {
+                id: "80ce30c53c16e6ede735f123ef6e32361bfc7b22",
+                at: 1,
+                tmax: 1000,
+                imp: [{
+                    id: "1",
+                    banner: {
+                        w: 300,
+                        h: 250,
+                        pos: 1,
+                        btype: [4],
+                        battr: [8, 5, 6, 7, 9, 10, 11, 12, 14, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+                    },
+                    tagid: "agltb3B1Yi1pbmNyEQsSB0FjY291bnQYxMDCDA",
+                    bidfloor: 0.5,
+                    bidfloorcur: "USD"
+                }],
+                site: {
+                    id: "102855",
+                    cat: ["IAB3-1"],
+                    domain: "www.foobar.com",
+                    page: "http://www.foobar.com/1234.html",
+                    publisher: {
+                        id: "8953",
+                        name: "foobar.com",
+                        cat: ["IAB3-1"],
+                        domain: "foobar.com"
+                    }
+                },
+                device: {
+                    ua: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
+                    ip: "123.145.167.10",
+                    devicetype: 2,
+                    make: "Apple",
+                    model: "Mac",
+                    os: "macOS",
+                    osv: "10.15.7",
+                    js: 1,
+                    language: "en"
+                },
+                user: {
+                    id: "55816b39711fbe6",
+                    buyeruid: "5a11ad1e-6f99-419e-b85f-4c81c5e2b887"
+                }
+            };
+
+            try {
+                // Using URLSearchParams to send data as form-urlencoded to avoid CORS preflight
+                const formData = new URLSearchParams();
+                formData.append('data', JSON.stringify(ortbPayload));
+                
+                const response = await fetch('http://localhost:8080/api?abcd=1&pqrd=123', {
+                    method: 'POST',
+                    headers: {
+                        // 'Content-Type': 'application/x-www-form-urlencoded'
+                        'Content-Type': 'text/plain'
+                    },
+                    body: JSON.stringify(ortbPayload)
+                });
+
+                const data = await response.json();
+                responseElement.textContent = 'Response received:\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                responseElement.textContent = 'Error: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html>

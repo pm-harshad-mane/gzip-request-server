@@ -1,7 +1,9 @@
 # gzip-request-server
 
 test.html has code that makes a plain/text post request to Golang server (main.go)
+
 test_zip.html code makes the gzip post request sent in contetType = "plain/text" to Golang server (main_zip.go)
+
 Diff of main.go and main_zip.go displays the minimal changes required to support this.
 
 Linkedin post: https://www.linkedin.com/feed/update/urn:li:activity:7331425419407085568/

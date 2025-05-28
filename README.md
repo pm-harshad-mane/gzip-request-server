@@ -3,8 +3,11 @@
 test.html has code that makes a plain/text post request to Golang server (main.go)
 test_zip.html code makes the gzip post request sent in contetType = "plain/text" to Golang server (main_zip.go)
 Diff of main.go and main_zip.go displays the minimal changes required to support this.
+
 Linkedin post: https://www.linkedin.com/feed/update/urn:li:activity:7331425419407085568/
+
 Prebid documentation: https://docs.prebid.org/dev-docs/bidder-adaptor.html#compression-support-for-outgoing-requests 
+
 Prebid JS Commit: https://github.com/prebid/Prebid.js/commit/77b620da035d9365d0091beafc268b78a215a9fd#diff-44300c00ba8a077145a3d52158f46e60a6fecfef87aa2ccbc1fe70ee148e8dc7
 
 Code change in PubMatic bidder:
